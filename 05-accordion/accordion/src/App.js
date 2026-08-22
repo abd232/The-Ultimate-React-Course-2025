@@ -1,4 +1,6 @@
 import "./App.css";
+import React from "react";
+
 import Item from "./components/Item";
 const faqs = [
   {
@@ -24,11 +26,35 @@ export default function App() {
 }
 
 function Accordion() {
+  const [activeIndex, setActiveIndex] = React.useState(null);
+
   return (
     <div className="accordion">
       {faqs.map((faq, index) => (
-        <Item key={index} faq={faq} index={index} />
+        <Item
+          key={index}
+          title={faq.title}
+          index={index}
+          isActive={activeIndex === index}
+          onSetActiveIndex={setActiveIndex}
+        >
+          {faq.text}
+        </Item>
       ))}
+      <Item
+        key={4}
+        title={"Hello World"}
+        index={4}
+        isActive={activeIndex === 4}
+        onSetActiveIndex={setActiveIndex}
+      >
+        <p>Allows React developers to:</p>
+        <ul>
+          <li>Break up UI into components</li>
+          <li>Make components reusuable</li>
+          <li>Place state efficiently</li>
+        </ul>
+      </Item>
     </div>
   );
 }
