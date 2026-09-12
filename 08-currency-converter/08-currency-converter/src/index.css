@@ -1,0 +1,59 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: aquamarine;
+}
+
+header {
+  background-color: blue;
+  padding: 16px;
+  margin: 16px;
+  border-radius: 0.9rem;
+}
+
+.title {
+  color: aquamarine;
+  margin: 16px auto 16px auto;
+  text-align: center;
+}
+
+.main {
+  margin: auto;
+  margin-top: 100px;
+  padding: 60px;
+  height: min-content;
+  width: min-content;
+  background-color: blue;
+  border-radius: 0.9rem;
+  display: flex;
+}
+
+.main > div {
+  height: 80px;
+
+  display: flex;
+  align-items: center;
+}
+
+.main > div > * {
+  margin: 0 8px;
+}
+
+.main input {
+  width: 56px;
+  height: 36px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.main select {
+  width: 70px;
+  height: 36px;
+}
+
+.left-line {
+  border-left: 2px solid aquamarine;
+}
