@@ -8,7 +8,7 @@ function LoansActions({ dispatch }) {
       <h3>Loans Actions</h3>
       <div>
         <form>
-          <label htmlFor="amount">Amount:</label>
+          <label htmlFor="amount">Get:</label>
           <input
             type="number"
             id="amount"
@@ -18,6 +18,7 @@ function LoansActions({ dispatch }) {
           />
           <button
             type="submit"
+            className="submit-btn"
             onClick={(e) => {
               e.preventDefault();
               dispatch({ type: "getLoan", payload: loanAmount });
@@ -29,7 +30,7 @@ function LoansActions({ dispatch }) {
       </div>
       <div>
         <form>
-          <label htmlFor="amount">Amount:</label>
+          <label htmlFor="amount">Repay:</label>
           <input
             type="number"
             id="amount"
@@ -39,6 +40,7 @@ function LoansActions({ dispatch }) {
           />
           <button
             type="submit"
+            className="submit-btn"
             onClick={(e) => {
               e.preventDefault();
               dispatch({ type: "repayLoan", payload: repaymentAmount });

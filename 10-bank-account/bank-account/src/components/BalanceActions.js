@@ -8,7 +8,7 @@ function BalanceActions({ dispatch }) {
       <h3>Balance Actions</h3>
       <div>
         <form>
-          <label htmlFor="amount">Amount:</label>
+          <label htmlFor="amount">Deposit:</label>
           <input
             type="number"
             id="amount"
@@ -18,6 +18,7 @@ function BalanceActions({ dispatch }) {
           />
           <button
             type="submit"
+            className="submit-btn"
             onClick={(e) => {
               e.preventDefault();
               dispatch({ type: "deposit", payload: depositAmount });
@@ -29,7 +30,7 @@ function BalanceActions({ dispatch }) {
       </div>
       <div>
         <form>
-          <label htmlFor="amount">Amount:</label>
+          <label htmlFor="amount">WithDrawal:</label>
           <input
             type="number"
             id="amount"
@@ -39,6 +40,7 @@ function BalanceActions({ dispatch }) {
           />
           <button
             type="submit"
+            className="submit-btn"
             onClick={(e) => {
               e.preventDefault();
               dispatch({ type: "withdrawal", payload: withdrawalAmount });

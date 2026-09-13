@@ -37,7 +37,7 @@ function reducer(state, action) {
         isAccountOpen: true,
         AccountActionLogs: [
           `${formattedDate} - Account Opened`,
-          ...state.AccountActionslogs,
+          ...state.AccountActionLogs,
         ],
       };
     case "deposit":
@@ -46,7 +46,7 @@ function reducer(state, action) {
         balance: state.balance + action.payload,
         AccountActionLogs: [
           `${formattedDate} - deposit (${action.payload}$)`,
-          ...state.AccountActionslogs,
+          ...state.AccountActionLogs,
         ],
       };
     case "withdrawal":
@@ -57,7 +57,7 @@ function reducer(state, action) {
         balance: state.balance - action.payload,
         AccountActionLogs: [
           `${formattedDate} - withdrawal (${action.payload}$)`,
-          ...state.AccountActionslogs,
+          ...state.AccountActionLogs,
         ],
       };
     case "getLoan":
@@ -67,7 +67,7 @@ function reducer(state, action) {
         loanBalance: state.loanBalance - action.payload,
         AccountActionLogs: [
           `${formattedDate} - withdrawal (${action.payload}$)`,
-          ...state.AccountActionslogs,
+          ...state.AccountActionLogs,
         ],
       };
     case "repayLoan":
@@ -79,7 +79,7 @@ function reducer(state, action) {
         loanBalance: state.loanBalance + action.payload,
         AccountActionLogs: [
           `${formattedDate} - get loan of (${action.payload}$)`,
-          ...state.AccountActionslogs,
+          ...state.AccountActionLogs,
         ],
       };
     case "closeAccount":
@@ -92,7 +92,7 @@ function reducer(state, action) {
         isAccountOpen: false,
         AccountActionLogs: [
           `${formattedDate} - Account Closed$)`,
-          ...state.AccountActionslogs,
+          ...state.AccountActionLogs,
         ],
       };
     default:
@@ -117,6 +117,9 @@ function App() {
           <AccountActions
             AccountActions={state.AccountActionLogs}
             dispatch={dispatch}
+            balance={state.balance}
+            loanBalance={state.loanBalance}
+            isAccountOpen
           />
         </ActionsSection>
       </Main>
