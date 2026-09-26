@@ -13,7 +13,6 @@ function Sidebar() {
       <Link to="/">
         <Logo />
       </Link>
-
       <AppNav />
       {error ? <p>❌ {error} </p> : loading ? <Spinner /> : <Outlet />}
     </div>

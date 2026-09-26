@@ -2,6 +2,10 @@
 
 import styles from "./City.module.css";
 import ButtonBack from "./ButtonBack";
+import { useParams } from "react-router-dom";
+import { useCities } from "./CitiesProvider";
+import { useEffect } from "react";
+import Spinner from "./Spinner";
 
 const formatDate = (date) =>
   new Intl.DateTimeFormat("en", {
@@ -12,18 +16,23 @@ const formatDate = (date) =>
   }).format(new Date(date));
 
 function City() {
-  const currentCity = {
-    cityName: "Lisbon",
-    emoji: "🇵🇹",
-    date: "2027-10-31T15:59:59.138Z",
-    notes: "My favorite city so far!",
-  };
   /*
   const [seatchParam, setSearchParam] = useSearchParams();
 
   const lat = seatchParam().get("lat");
   const lng = seatchParam().get("lng");
 */
+  const { id } = useParams();
+  const { loading, currentCity, getCity } = useCities();
+  console.log(id);
+  useEffect(
+    function () {
+      getCity(id);
+    },
+    [id, getCity],
+  );
+
+  if (currentCity == null || loading) return <Spinner />;
   const { cityName, emoji, date, notes } = currentCity;
 
   return (

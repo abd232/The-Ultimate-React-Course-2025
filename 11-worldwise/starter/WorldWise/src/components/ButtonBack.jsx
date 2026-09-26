@@ -4,7 +4,7 @@ import Button from "./Button";
 function ButtonBack() {
   const navigate = useNavigate();
   return (
-    <Button type="back" onclick={navigate(-1)}>
+    <Button type="back" onClickFunction={() => navigate(-1)}>
       &larr;back
     </Button>
   );

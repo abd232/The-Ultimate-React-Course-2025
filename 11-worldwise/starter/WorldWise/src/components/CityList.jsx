@@ -5,7 +5,8 @@ import CityItem from "./CityItem";
 import styles from "./CityList.module.css";
 
 function CityList() {
-  const { cities } = useCities();
+  const { cities, onDeleteCity } = useCities();
+
   if (cities.lenght === 0)
     return (
       <Message
@@ -15,7 +16,7 @@ function CityList() {
   return (
     <ul className={styles.cityList}>
       {cities.map((city) => (
-        <CityItem city={city} key={city.id} />
+        <CityItem city={city} handleDeleteCity={onDeleteCity} key={city.id} />
       ))}
     </ul>
   );

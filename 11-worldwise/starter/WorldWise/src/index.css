@@ -33,6 +33,22 @@ body {
   line-height: 1.6;
 }
 
+div {
+  scrollbar-width: none; /* Firefox */
+}
+
+div::-webkit-scrollbar {
+  display: none; /* Chrome, Edge, Safari */
+}
+
+ul {
+  scrollbar-width: none; /* Firefox */
+}
+
+ul::-webkit-scrollbar {
+  display: none; /* Chrome, Edge, Safari */
+}
+
 label {
   font-size: 1.6rem;
   font-weight: 600;

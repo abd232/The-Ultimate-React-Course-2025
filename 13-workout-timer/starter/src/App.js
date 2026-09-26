@@ -46,7 +46,6 @@ function App() {
     const id = setInterval(function () {
       setTime(formatTime(new Date()));
     }, 1000);
-
     return () => clearInterval(id);
   }, []);
 

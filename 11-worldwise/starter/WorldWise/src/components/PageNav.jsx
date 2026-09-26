@@ -10,17 +10,17 @@ function PageNav() {
       </NavLink>
       <ul className={styles.ul}>
         <li className={styles.li}>
-          <NavLink className={styles.NavLink} to="Pricing">
+          <NavLink className={styles.NavLink} to="/Pricing">
             Pricing
           </NavLink>
         </li>
         <li className={styles.li}>
-          <NavLink className={styles.NavLink} to="Product">
+          <NavLink className={styles.NavLink} to="/Product">
             Product
           </NavLink>
         </li>
         <li>
-          <NavLink to="Login" className={styles.ctaLink}>
+          <NavLink to="/Login" className={styles.ctaLink}>
             Login
           </NavLink>
         </li>
