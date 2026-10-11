@@ -1,6 +1,6 @@
 function CartOverview() {
   return (
-    <div>
+    <div className="space-y-2 space-x-2 bg-stone-800 text-yellow-100">
       <p>
         <span>23 pizzas</span>
         <span>$23.45</span>

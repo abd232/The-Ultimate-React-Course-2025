@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function SearchOrder() {
-  const [searchQuery, setSerchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
   const navigator = useNavigate();
 
   function handleSubmit(e) {
@@ -11,12 +11,14 @@ function SearchOrder() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="search-form" onSubmit={handleSubmit}>
       <input
         value={searchQuery}
-        onChange={(e) => setSerchQuery(e.target.value)}
+        className="w-30 focus:w-40 md:w-60 md:focus:w-80 transition-all duration-300 bg-yellow-100 border border-gray-300 rounded-md p-1"
+        type="text"
+        placeholder="Search order by ID"
+        onChange={(e) => setSearchQuery(e.target.value)}
       />
-      <input type="submit" value="Search" />
     </form>
   );
 }
