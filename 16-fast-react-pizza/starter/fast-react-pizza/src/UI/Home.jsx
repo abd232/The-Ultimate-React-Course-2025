@@ -1,6 +1,8 @@
-import { Form } from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
 
 function Home() {
+  const navigate = useNavigate();
+
   return (
     <div>
       <h1 className="text-4xl font-bold font-semibold text-center mt-10">
@@ -11,7 +13,11 @@ function Home() {
         <Form
           className="mt-4 flex flex-col items-center space-y-4 md:space-x-2 md:space-y-0"
           method="get"
-          action="/order"
+          onSubmit={(e) => {
+            e.preventDefault();
+            if (!e.target.name.value) return;
+            navigate("/menu");
+          }}
         >
           <label
             htmlFor="name"
@@ -20,9 +26,10 @@ function Home() {
             Welcome👋, Please start with telling us your Name.
           </label>
           <input
-            className="border border-yellow-100 bg-white rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-xl md:text-2xl lg:text-3xl"
+            className="border border-yellow-100 w-2/3 text-center text-sm sm:text-base sm:w-1/2 bg-white rounded-md py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-xl md:text-2xl lg:text-3xl"
             type="text"
             placeholder="Your Full Name"
+            name="name"
           />
           <input
             className="block bg-yellow-300 mt-6 hover:bg-yellow-400 text-stone-800 py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-xl md:text-2xl lg:text-3xl"

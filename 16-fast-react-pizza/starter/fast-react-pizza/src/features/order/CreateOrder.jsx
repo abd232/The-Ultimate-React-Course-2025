@@ -36,27 +36,44 @@ function CreateOrder() {
   const errorFrom = useActionData();
 
   return (
-    <div>
-      <h2>Ready to order? Let's go!</h2>
+    <div className="w-full max-w-240 mx-auto p-8 ">
+      <h2 className="text-xl font-semibold text-stone-800 mb-8">
+        Ready to order? Let's go!
+      </h2>
 
-      <Form method="POST">
-        <div>
+      <Form method="POST" className="flex flex-col gap-4">
+        <div className="mb-4 flex flex-col gap-2">
           <label>First Name</label>
-          <input type="text" name="customer" required />
+          <input
+            type="text"
+            name="customer"
+            className="border border-stone-300 w-full bg-slate-100 rounded-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+            required
+          />
         </div>
 
-        <div>
+        <div className="mb-4 flex flex-col gap-2">
           <label>Phone number</label>
           <div>
-            <input type="tel" name="phone" required />
+            <input
+              type="tel"
+              name="phone"
+              required
+              className="border border-stone-300 w-full bg-slate-100 rounded-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+            />
             {errorFrom?.phone && <p>{errorFrom.phone}</p>}
           </div>
         </div>
 
-        <div>
+        <div className="mb-4 flex flex-col gap-2">
           <label>Address</label>
           <div>
-            <input type="text" name="address" required />
+            <input
+              type="text"
+              name="address"
+              required
+              className="border border-stone-300 w-full bg-slate-100 rounded-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+            />
           </div>
         </div>
 
@@ -66,14 +83,18 @@ function CreateOrder() {
             type="checkbox"
             name="priority"
             id="priority"
+            className="mr-2 accent-yellow-500 border-yellow-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 sm:text-xl md:text-2xl lg:text-3xl"
             // value={withPriority}
             // onChange={(e) => setWithPriority(e.target.checked)}
           />
           <label htmlFor="priority">Want to yo give your order priority?</label>
         </div>
 
-        <div>
-          <button disabled={isSubmitting}>
+        <div className="mt-4 flex justify-end">
+          <button
+            className="bg-yellow-400 hover:bg-yellow-300 transition-colors duration-300 text-stone-800 font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring-2 focus:ring-yellow-400 disabled:cursor-not-allowed disabled:opacity-50"
+            disabled={isSubmitting}
+          >
             {isSubmitting ? "Placing order..." : "Order now"}
           </button>
         </div>
