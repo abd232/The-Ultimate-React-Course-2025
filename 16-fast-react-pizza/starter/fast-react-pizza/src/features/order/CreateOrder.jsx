@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import { Form, useActionData, useNavigation } from "react-router-dom";
 
 // https://uibakery.io/regex-library/phone-number
@@ -30,6 +31,8 @@ function CreateOrder() {
   // const [withPriority, setWithPriority] = useState(false);
   const cart = fakeCart;
 
+  const userName = useSelector((state) => state.user.name);
+
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
 
@@ -47,6 +50,7 @@ function CreateOrder() {
           <input
             type="text"
             name="customer"
+            defaultValue={userName || errorFrom?.customer}
             className="border border-stone-300 w-full bg-slate-100 rounded-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-500"
             required
           />
