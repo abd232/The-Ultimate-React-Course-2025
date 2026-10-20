@@ -1,10 +1,6 @@
-import { Link } from 'react-router-dom';
-
 function EmptyCart() {
   return (
-    <div>
-      <Link to="/menu">&larr; Back to menu</Link>
-
+    <div className="flex flex-col items-center justify-center h-full text-center">
       <p>Your cart is still empty. Start adding some pizzas :)</p>
     </div>
   );

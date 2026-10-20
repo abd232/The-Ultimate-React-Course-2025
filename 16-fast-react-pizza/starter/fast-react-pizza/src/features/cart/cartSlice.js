@@ -33,6 +33,27 @@ const pizzaSlice = createSlice({
         });
       }
     },
+    increaseQuantity: (state, action) => {
+      const pizzaId = action.payload;
+      const existingItem = state.cart.find((item) => item.pizzaId === pizzaId);
+      if (existingItem) {
+        existingItem.quantity += 1;
+        existingItem.totalPrice =
+          existingItem.quantity * existingItem.unitPrice;
+      }
+    },
+    decreaseQuantity: (state, action) => {
+      const pizzaId = action.payload;
+      const existingItem = state.cart.find((item) => item.pizzaId === pizzaId);
+      if (existingItem) {
+        existingItem.quantity -= 1;
+        existingItem.totalPrice =
+          existingItem.quantity * existingItem.unitPrice;
+        if (existingItem.quantity <= 0) {
+          state.cart = state.cart.filter((item) => item.pizzaId !== pizzaId);
+        }
+      }
+    },
     deleteFromCart: (state, action) => {
       const pizzaId = action.payload;
       state.cart = state.cart.filter((item) => item.pizzaId !== pizzaId);
@@ -43,6 +64,12 @@ const pizzaSlice = createSlice({
   },
 });
 
-export const { addToCart, deleteFromCart, clearCart } = pizzaSlice.actions;
+export const {
+  addToCart,
+  increaseQuantity,
+  decreaseQuantity,
+  deleteFromCart,
+  clearCart,
+} = pizzaSlice.actions;
 
 export default pizzaSlice.reducer;
