@@ -1,35 +1,14 @@
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Form, useActionData, useNavigation } from "react-router-dom";
 
+import { formatCurrency } from "../../helper/helpers";
+
 // https://uibakery.io/regex-library/phone-number
 
-const fakeCart = [
-  {
-    pizzaId: 12,
-    name: "Mediterranean",
-    quantity: 2,
-    unitPrice: 16,
-    totalPrice: 32,
-  },
-  {
-    pizzaId: 6,
-    name: "Vegetale",
-    quantity: 1,
-    unitPrice: 13,
-    totalPrice: 13,
-  },
-  {
-    pizzaId: 11,
-    name: "Spinach and Mushroom",
-    quantity: 1,
-    unitPrice: 15,
-    totalPrice: 15,
-  },
-];
-
 function CreateOrder() {
-  // const [withPriority, setWithPriority] = useState(false);
-  const cart = fakeCart;
+  const [withPriority, setWithPriority] = useState(false);
+  const cart = useSelector((state) => state.cart.cart);
 
   const userName = useSelector((state) => state.user.name);
 
@@ -37,6 +16,10 @@ function CreateOrder() {
   const isSubmitting = navigation.state === "submitting";
 
   const errorFrom = useActionData();
+
+  const totalPrice = cart.reduce((sum, item) => sum + item.totalPrice, 0);
+
+  const priorityPrice = withPriority ? totalPrice * 0.2 : 0;
 
   return (
     <div className="w-full max-w-240 mx-auto p-8 ">
@@ -88,8 +71,8 @@ function CreateOrder() {
             name="priority"
             id="priority"
             className="mr-2 accent-yellow-500 border-yellow-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 sm:text-xl md:text-2xl lg:text-3xl"
-            // value={withPriority}
-            // onChange={(e) => setWithPriority(e.target.checked)}
+            value={withPriority}
+            onChange={(e) => setWithPriority(e.target.checked)}
           />
           <label htmlFor="priority">Want to yo give your order priority?</label>
         </div>
@@ -99,7 +82,9 @@ function CreateOrder() {
             className="bg-yellow-400 hover:bg-yellow-300 transition-colors duration-300 text-stone-800 font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring-2 focus:ring-yellow-400 disabled:cursor-not-allowed disabled:opacity-50"
             disabled={isSubmitting}
           >
-            {isSubmitting ? "Placing order..." : "Order now"}
+            {isSubmitting
+              ? "Placing order..."
+              : `Order now from ${formatCurrency(totalPrice + priorityPrice)}`}
           </button>
         </div>
       </Form>

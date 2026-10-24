@@ -1,6 +1,6 @@
 import { formatCurrency } from "../../helper/helpers";
 
-function OrderItem({ item, isLoadingIngredients, ingredients }) {
+function OrderItem({ item }) {
   const { quantity, name, totalPrice } = item;
 
   return (
