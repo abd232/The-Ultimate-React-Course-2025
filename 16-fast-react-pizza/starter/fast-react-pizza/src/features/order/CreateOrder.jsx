@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Form, useActionData, useNavigation } from "react-router-dom";
-
 import { formatCurrency } from "../../helper/helpers";
+import { fetchAddress } from "../home/userSlice";
 
 // https://uibakery.io/regex-library/phone-number
 
@@ -12,6 +12,15 @@ function CreateOrder() {
 
   const userName = useSelector((state) => state.user.name);
 
+  const address = useSelector((state) => state.user.address);
+  const status = useSelector((state) => state.user.status);
+  const error = useSelector((state) => state.user.error);
+  const position = useSelector((state) => state.user.position);
+
+  const postionUsed = useSelector((state) => state.user.postionUsed);
+
+  const isLoadingAddress = status === "loading";
+
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
 
@@ -20,6 +29,8 @@ function CreateOrder() {
   const totalPrice = cart.reduce((sum, item) => sum + item.totalPrice, 0);
 
   const priorityPrice = withPriority ? totalPrice * 0.2 : 0;
+
+  const dispatch = useDispatch();
 
   return (
     <div className="w-full max-w-240 mx-auto p-8 ">
@@ -54,18 +65,39 @@ function CreateOrder() {
 
         <div className="mb-4 flex flex-col gap-2">
           <label>Address</label>
-          <div>
+          <div className="relative">
             <input
               type="text"
               name="address"
               required
+              defaultValue={address}
               className="border border-stone-300 w-full bg-slate-100 rounded-full py-2 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-500"
             />
+            {!postionUsed && (
+              <button
+                className="absolute bg-yellow-400 rounded-full border-stone-300 border py-2 px-4 right-[1px]
+            hover:pointer hover:stroke-white"
+                onClick={(e) => {
+                  e.preventDefault();
+                  dispatch(fetchAddress());
+                }}
+              >
+                Get Postion
+              </button>
+            )}
           </div>
+          {error !== "" && (
+            <p className="bg-red-300 px-4 py-1 rounded-full ">{error}</p>
+          )}
         </div>
 
         <div>
           <input type="hidden" name="cart" value={JSON.stringify(cart)} />
+          <input
+            type="hidden"
+            name="position"
+            value={`${position.latitude},${position.longitude}`}
+          />
           <input
             type="checkbox"
             name="priority"
@@ -80,7 +112,7 @@ function CreateOrder() {
         <div className="mt-4 flex justify-end">
           <button
             className="bg-yellow-400 hover:bg-yellow-300 transition-colors duration-300 text-stone-800 font-semibold py-2 px-4 rounded-full focus:outline-none focus:ring-2 focus:ring-yellow-400 disabled:cursor-not-allowed disabled:opacity-50"
-            disabled={isSubmitting}
+            disabled={isSubmitting || isLoadingAddress}
           >
             {isSubmitting
               ? "Placing order..."
