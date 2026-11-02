@@ -29,3 +29,31 @@ const Box = styled.div`
     color: var(--color-grey-500);
   }
 `;
+
+const Button = styled.button`
+  border: none;
+  border-radius: var(--border-radius-sm);
+  background-color: var(--color-brand-600);
+  color: var(--color-brand-50);
+  font-size: 1.4rem;
+  padding: 1.2rem 1.6rem;
+  font-weight: 500;
+
+  &:hover {
+    background-color: var(--color-brand-700);
+  }
+`;
+
+function ErrorFallback({ error, resetErrorBoundary }) {
+  return (
+    <StyledErrorFallback>
+      <Box>
+        <h1>Something went wrong 😢</h1>
+        <p>{error.message}</p>
+        <Button onClick={resetErrorBoundary}>Try again</Button>
+      </Box>
+    </StyledErrorFallback>
+  );
+}
+
+export default ErrorFallback;

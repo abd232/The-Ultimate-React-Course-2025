@@ -47,3 +47,14 @@ const variations = {
     }
   `,
 };
+
+export const Button = styled.button`
+  border: none;
+  border-radius: var(--border-radius-sm);
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+
+  ${({ size }) => sizes[size] || sizes.medium}
+  ${({ variation }) => variations[variation] || variations.primary}
+`;
