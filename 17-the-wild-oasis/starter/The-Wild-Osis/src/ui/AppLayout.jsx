@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import Side from "./Side";
 import Header from "./Header";
 import { Outlet } from "react-router-dom";
+import Side from "./side";
 
 const StyledAppLayout = styled.div`
   display: flex;
-  flex-direction: column;
   min-height: 100vh;
+  min-width: 100rem;
 `;
 
 const MainContent = styled.main`
@@ -18,9 +18,9 @@ const MainContent = styled.main`
 function AppLayout() {
   return (
     <StyledAppLayout>
-      <Header />
-      <div style={{ display: "flex", flex: 1 }}>
-        <Side />
+      <Side />
+      <div style={{ display: "flex", flex: 1, flexDirection: "column" }}>
+        <Header />
         <MainContent>
           <Outlet />
         </MainContent>
