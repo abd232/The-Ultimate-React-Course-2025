@@ -5,3 +5,9 @@ export async function getCabins() {
 
   return { cabin, error };
 }
+
+export async function createCabin(cabin) {
+  const { data, error } = await supabase.from("cabin").insert([cabin]).select();
+
+  return { data, error };
+}

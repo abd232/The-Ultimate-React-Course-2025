@@ -15,6 +15,12 @@ const MainContent = styled.main`
   background-color: var(--color-grey-50);
 `;
 
+const ContentWrapper = styled.div`
+  max-width: 120rem;
+  margin: 0 auto;
+  padding: 0 2rem;
+`;
+
 function AppLayout() {
   return (
     <StyledAppLayout>
@@ -22,7 +28,9 @@ function AppLayout() {
       <div style={{ display: "flex", flex: 1, flexDirection: "column" }}>
         <Header />
         <MainContent>
-          <Outlet />
+          <ContentWrapper>
+            <Outlet />
+          </ContentWrapper>
         </MainContent>
       </div>
     </StyledAppLayout>

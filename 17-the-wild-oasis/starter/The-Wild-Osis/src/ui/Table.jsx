@@ -1,5 +1,4 @@
 import styled from "styled-components";
-
 const StyledTable = styled.div`
   border: 1px solid var(--color-grey-200);
 
@@ -27,7 +26,7 @@ const StyledHeader = styled(CommonRow)`
   font-weight: 600;
   color: var(--color-grey-600);
 `;
-
+/*
 const StyledRow = styled(CommonRow)`
   padding: 1.2rem 2.4rem;
 
@@ -35,7 +34,7 @@ const StyledRow = styled(CommonRow)`
     border-bottom: 1px solid var(--color-grey-100);
   }
 `;
-
+*/
 const StyledBody = styled.section`
   margin: 0.4rem 0;
 `;
@@ -51,10 +50,27 @@ const Footer = styled.footer`
     display: none;
   }
 `;
-
+/*
 const Empty = styled.p`
   font-size: 1.6rem;
   font-weight: 500;
   text-align: center;
   margin: 2.4rem;
-`;
+`;*/
+
+export default function Table() {
+  return (
+    <StyledTable>
+      <StyledHeader role="row">
+        <div></div>
+        <div>Name</div>
+        <div>Capacity</div>
+        <div>Price</div>
+        <div>Discount</div>
+        <div></div>
+      </StyledHeader>
+      <StyledBody></StyledBody>
+      <Footer>Footer</Footer>
+    </StyledTable>
+  );
+}

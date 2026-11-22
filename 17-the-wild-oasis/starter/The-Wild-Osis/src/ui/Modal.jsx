@@ -48,3 +48,16 @@ const Button = styled.button`
     color: var(--color-grey-500);
   }
 `;
+
+function Modal({ children, onClose }) {
+  return (
+    <Overlay onClick={onClose}>
+      <StyledModal onClick={(e) => e.stopPropagation()}>
+        <Button onClick={onClose}>&times;</Button>
+        {children}
+      </StyledModal>
+    </Overlay>
+  );
+}
+
+export default Modal;
