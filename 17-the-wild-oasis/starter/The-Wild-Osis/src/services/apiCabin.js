@@ -1,4 +1,4 @@
-import supabase, { supabaseUrl } from "./supabase";
+import supabase from "./supabase";
 
 export async function getCabins() {
   let { data: cabin, error } = await supabase.from("cabin").select("*");
@@ -6,33 +6,41 @@ export async function getCabins() {
   return { cabin, error };
 }
 
-export async function createCabin(cabin) {
+export async function createCabin({ image: imageFile, ...cabin }) {
+  const bucket = supabase.storage.from("cabin_image");
+  const imageFileName = `${crypto.randomUUID()}-${imageFile.name}`;
+  const {
+    data: { publicUrl },
+  } = bucket.getPublicUrl(imageFileName);
+
+  const { data: createdCabin, error } = await supabase
+    .from("cabin")
+    .insert({ ...cabin, image: publicUrl })
+    .select()
+    .single();
+
   if (error) {
-    console.error(error);
-    throw new Error("Cabin could not be created");
+    throw new Error(`Cabin could not be created: ${error.message}`);
   }
 
-  const imageFile = cabin.image;
-
-  const imageFileName = `cabin-${data[0].id}.jpg`;
-  const imageFilePath = `${supabaseUrl}/storage/v1/object/public/cabin_image/${imageFileName}`;
-
-  const { data, error } = await supabase
-    .from("cabin")
-    .insert([{ ...cabin, image: imageFilePath }]);
-
-  const { error: uploadError } = await supabase.storage
-    .from("cabin_image")
-    .upload(imageFileName, imageFile);
+  const { error: uploadError } = await bucket.upload(imageFileName, imageFile);
 
   if (uploadError) {
-    await supabase.from("cabin").delete().eq("id", data[0].id);
+    const { data: deletedCabin, error: deleteError } = await supabase
+      .from("cabin")
+      .delete()
+      .eq("id", createdCabin.id)
+      .select("id")
+      .maybeSingle();
 
-    console.error(uploadError);
+    if (deleteError || !deletedCabin) {
+      console.error("Could not roll back cabin:", createdCabin.id, deleteError);
+    }
+
     throw new Error(
-      "Cabin image could not be uploaded: " + uploadError.message,
+      `Cabin image could not be uploaded: ${uploadError.message}`,
     );
   }
 
-  return { data, error };
+  return createdCabin;
 }
